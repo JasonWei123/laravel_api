@@ -54,8 +54,11 @@ class Handler extends ExceptionHandler
         $log = \Log::channel('error');
         $controller = new Controller();
         $message = $url . ':ip:' . $ip . ':异常请求:' . json_encode($request->all()) . ':bug:' . $exception->getMessage();
-        if ($exception instanceof InvalidRequestException) {
-            return $controller->fail($exception->getMessage());
+        if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            return $controller->fail($exception->validator->messages()->messages());
+        }
+        if ($exception instanceof ResponseSystemException) {
+            return $controller->failSystem($exception->getMessage());
         }
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             $log->warning($message);

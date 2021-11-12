@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('user')
+    ->namespace('User')
+    ->name('user.')
+    ->group(function () {
+        Route::any('register', 'UserController@register')->name('user.register');
+    });

@@ -14,15 +14,15 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public $http_success_code = 200;
-    public $success = 'success';
-    public $fail = 'fail';
+    public $success_status = 'success';
+    public $fail_status = 'fail';
     public $header = ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'];
 
     public function success($data = [], $exp = [])
     {
         list($massage, $code) = $this->getMessageByCode(ResponseEnum::REQUEST_SUCCESS);
         $return = [
-            'status' => $this->success,
+            'status' => $this->success_status,
             'code' => (int)$code,
             'message' => Lang::get($massage),
             'data' => $data,
@@ -36,7 +36,7 @@ class Controller extends BaseController
     {
         list($massage, $code) = $this->getMessageByCode($code);
         $return = [
-            'status' => $this->fail,
+            'status' => $this->fail_status,
             'code' => (int)$code,
             'message' => Lang::get($massage),
             'data' => [],
@@ -45,11 +45,11 @@ class Controller extends BaseController
         return response()->json($return, 200, $this->header)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }
 
-    public function fail($errors = null)
+    public function fail($errors)
     {
-        list($massage, $code) = $this->getMessageByCode(ResponseEnum::REQUEST_SUCCESS);
+        list($massage, $code) = $this->getMessageByCode(ResponseEnum::INVALID_REQUEST);
         $return = [
-            'status' => $this->fail,
+            'status' => $this->fail_status,
             'code' => (int)$code,
             'message' => Lang::get($massage),
             'data' => [],
