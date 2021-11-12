@@ -24,6 +24,11 @@ class UserRequest extends FormRequest
             'register' => [
                 'account',
                 'password',
+                'telphone',
+            ],
+            'login' => [
+                'account',
+                'password',
             ],
             'telphone' => [
                 'telphone',

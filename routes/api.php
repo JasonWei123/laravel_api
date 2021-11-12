@@ -14,9 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('user')
-    ->namespace('User')
-    ->middleware(['log'])
-    ->name('user.')
-    ->group(function () {
-        Route::any('register', 'UserController@register')->name('user.register');
-    });
+->namespace('User')
+->middleware(['log'])
+->name('user.')
+->group(function () {
+    Route::any('register', 'UserController@register')->name('user.register');
+    Route::any('first', 'UserController@first')->name('user.first');
+});

@@ -55,6 +55,8 @@ class Handler extends ExceptionHandler
         $controller = new Controller();
         $message = $url . ':ip:' . $ip . ':异常请求:' . json_encode($request->all()) . ':bug:' . $exception->getMessage();
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            $log = \Log::channel('validation');
+            $log->info($message, $exception->validator->messages()->messages());
             return $controller->fail($exception->validator->messages()->messages());
         }
         if ($exception instanceof ResponseSystemException) {

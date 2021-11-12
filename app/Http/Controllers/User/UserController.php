@@ -28,9 +28,14 @@ class UserController extends Controller
                 'password',
             ]
         )->toArray();
-
-
         $user = $this->service->createUser($params);
+        return $this->success($user);
+    }
+
+
+    public function first(Request $request)
+    {
+        $user = User::all()->toArray();
         return $this->success($user);
     }
 }

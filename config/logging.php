@@ -61,6 +61,12 @@ return [
             'days' => 14,
         ],
 
+        'validation' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/validation.log'),
+            'level' => 'debug',
+        ],
+
         'mysql' => [
             'driver' => 'single',
             'path' => storage_path('logs/mysql.log'),

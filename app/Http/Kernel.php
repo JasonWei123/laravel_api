@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             \App\Http\Middleware\AcceptHeader::class,
+            \App\Http\Middleware\Language::class,
             'throttle:60,1',
             'bindings',
         ],
