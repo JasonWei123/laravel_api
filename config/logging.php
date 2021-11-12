@@ -61,6 +61,12 @@ return [
             'days' => 14,
         ],
 
+        'mysql' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mysql.log'),
+            'level' => 'debug',
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
