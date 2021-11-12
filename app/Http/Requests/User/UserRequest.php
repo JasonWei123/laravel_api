@@ -14,6 +14,7 @@ class UserRequest extends FormRequest
         return [
             'account' => 'required|string|email|min:6|max:60',
             'password' => 'required|string|min:6',
+            'telphone' => 'required|zztelphone|min:6',
         ];
     }
 
@@ -23,6 +24,9 @@ class UserRequest extends FormRequest
             'register' => [
                 'account',
                 'password',
+            ],
+            'telphone' => [
+                'telphone',
             ],
         ];
     }

@@ -147,5 +147,5 @@ return [
     */
 
     'attributes' => [],
-
+    'zztelphone' => ':attribute not rule.'
 ];
