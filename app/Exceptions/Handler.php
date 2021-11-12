@@ -2,6 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Enums\ResponseEnum;
+use App\Http\Controllers\Controller;
+use App\Libs\Constant\Res;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -46,6 +49,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        $ip = $request->ip();
+        $url = $request->url();
+        $log = \Log::channel('error');
+        $controller = new Controller();
+        $message = $url . ':ip:' . $ip . ':异常请求:' . json_encode($request->all()) . ':bug:' . $exception->getMessage();
+        if ($exception instanceof InvalidRequestException) {
+            return $controller->fail($exception->getMessage());
+        }
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            $log->warning($message);
+            return $controller->failSystem(ResponseEnum::RESPONSE_NO_FOUND);
+        }
+        $log->error($message);
+        return $controller->failSystem(ResponseEnum::RESPONSE_ERROR);
     }
 }
