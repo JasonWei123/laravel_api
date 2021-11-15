@@ -15,11 +15,12 @@ class Language
      */
     public function handle($request, Closure $next)
     {
-        $langs = ['zh-CN', 'en', 'th'];
+        $langs = ['Asia/Shanghai' => 'zh-CN', 'America/Los_Angeles' => 'en'];
         // 获取路由前缀
         $local = $request->header('language', 'zh-CN');
         if (in_array($local, $langs)) {
             app()->setLocale($local);
+            config(['app.timezone' => array_search($local, $langs)]);
         }
         return $next($request);
     }

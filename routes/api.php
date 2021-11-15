@@ -20,4 +20,5 @@ Route::prefix('user')
 ->group(function () {
     Route::any('register', 'UserController@register')->name('user.register');
     Route::any('first', 'UserController@first')->name('user.first');
+    Route::any('update', 'UserController@update')->name('user.update');
 });

@@ -38,5 +38,14 @@ class UserController extends Controller
         $user = User::all()->toArray();
         return $this->success($user);
     }
+
+    public function update(Request $request)
+    {
+        $user = User::first();
+        $user->account = 'test11111' . time();
+        $user->password = 'testaa' . time();
+        $user->save();
+        return $this->success($user);
+    }
 }
 

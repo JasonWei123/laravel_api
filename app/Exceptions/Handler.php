@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use App\Enums\ResponseEnum;
 use App\Http\Controllers\Controller;
-use App\Libs\Constant\Res;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
