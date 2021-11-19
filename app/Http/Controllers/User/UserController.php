@@ -41,7 +41,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $user = User::first();
+        $user = User::query()->first();
         $user->account = 'test11111' . time();
         $user->password = 'testaa' . time();
         $user->save();

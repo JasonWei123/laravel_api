@@ -32,7 +32,7 @@ class Controller extends BaseController
         return response()->json($return, 200, $this->header)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }
 
-    public function failSystem($code, $errors = [])
+    public function failSystem($code, $errors = [], $header = null)
     {
         list($massage, $code) = $this->getMessageByCode($code);
         $return = [
@@ -42,6 +42,7 @@ class Controller extends BaseController
             'data' => [],
             'errors' => $errors,
         ];
+        if ($header) $this->header = array_merge($this->header, $header);
         return response()->json($return, 200, $this->header)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }
 

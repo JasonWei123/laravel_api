@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Enums\ResponseEnum;
 use App\Http\Controllers\Controller;
+use App\Libs\Constant\Res;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -57,6 +58,11 @@ class Handler extends ExceptionHandler
             $log = \Log::channel('validation');
             $log->info($message, $exception->validator->messages()->messages());
             return $controller->fail($exception->validator->messages()->messages());
+        }
+        if ($exception instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
+            $log->warning($message);
+            $retry_after = @$exception->getHeaders()['Retry-After'].' s';
+            return $controller->failSystem(ResponseEnum::REQUEST_MORE, ['aretry_after' => $retry_after], $exception->getHeaders());
         }
         if ($exception instanceof ResponseSystemException) {
             return $controller->failSystem($exception->getMessage());

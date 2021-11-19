@@ -18,6 +18,7 @@ return [
     'user_already_exists' => 'user already exists',
     'http_not_found' => 'http not found',
     'system_error' => 'system error',
+    'request_more' => 'request more',
 
 
 ];
