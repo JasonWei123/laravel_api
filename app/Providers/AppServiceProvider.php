@@ -31,5 +31,14 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Validator::extend('zztelphone', function ($attribute, $value, $parameters) {
             return preg_match('#^1[34578][0-9]{9}$#', $value);
         });
+        //sql
+        \DB::listen(function ($query) {
+            $sql = $query->sql;
+            $bingings = $query->bindings;
+            $time = $query->time;
+            $log = \Log::channel('sql');
+            $log->debug('sql ', compact('sql', 'bingings', 'time'));
+            //$log->debug(Str::replaceArray('?', $bingings, $sql));
+        });
     }
 }
