@@ -47,5 +47,16 @@ class UserController extends Controller
         $user->save();
         return $this->success($user);
     }
+
+    public function search(Request $request)
+    {
+//        $res = User::search('test')->get();
+        $res = User::search('test',function(){
+
+        }
+        )->get();
+
+        return $this->success($res);
+    }
 }
 

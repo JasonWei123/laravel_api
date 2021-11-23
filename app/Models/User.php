@@ -7,12 +7,48 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
+    use Searchable;
     use CustomTime;
 
     protected $guarded = [];
+
+    /**
+     * 获取索引名称
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'users_index';
+    }
+    /**
+     * 获取模型的可搜索数据
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // 自定义数组...
+
+        return $array;
+    }
+
+    /**
+     * 获取模型主键
+     *
+     * @return mixed
+     */
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
 
     public static function findByAccount(string $account)
     {

@@ -21,4 +21,5 @@ Route::prefix('user')
     Route::any('register', 'UserController@register')->name('user.register');
     Route::any('first', 'UserController@first')->name('user.first');
     Route::any('update', 'UserController@update')->middleware('throttle:1,1')->name('user.update');
+    Route::any('search', 'UserController@search')->middleware('throttle:60,1')->name('user.search');
 });
