@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +43,30 @@ class AppServiceProvider extends ServiceProvider
             $log = \Log::channel('sql');
             $log->debug('sql ', compact('sql', 'bingings', 'time'));
             //$log->debug(Str::replaceArray('?', $bingings, $sql));
+        });
+
+        Queue::before(function (JobProcessing $event) {
+            $connectionName = $event->connectionName;
+            $job = $event->job;
+            $payload = $event->job->payload();
+            $log = \Log::channel('job');
+            $log->debug('JobProcessing', compact('connectionName', 'job', 'payload'));
+        });
+
+        Queue::after(function (JobProcessed $event) {
+            $connectionName = $event->connectionName;
+            $job = $event->job;
+            $payload = $event->job->payload();
+            $log = \Log::channel('job');
+            $log->debug('JobProcessed', compact('connectionName', 'job', 'payload'));
+        });
+
+        Queue::failing(function (JobFailed $event) {
+            $connectionName = $event->connectionName;
+            $job = $event->job;
+            $payload = $event->job->payload();
+            $log = \Log::channel('job');
+            $log->error('JobFailed', compact('connectionName', 'job', 'payload'));
         });
     }
 }

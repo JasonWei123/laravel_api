@@ -23,3 +23,15 @@ Route::prefix('user')
     Route::any('update', 'UserController@update')->middleware('throttle:1,1')->name('user.update');
     Route::any('search', 'UserController@search')->middleware('throttle:60,1')->name('user.search');
 });
+
+
+Route::prefix('test')
+->namespace('Test')
+->middleware(['log'])
+->name('test.')
+->group(function () {
+    Route::any('test', 'TestController@test')->name('test.test');
+    Route::any('test1', 'TestController@test1')->name('test.test1');
+    Route::any('success', 'TestController@returnSuccess')->name('test.success');
+    Route::any('fail', 'TestController@returnFail')->name('test.fail');
+});

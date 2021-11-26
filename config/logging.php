@@ -73,6 +73,13 @@ return [
             'level' => 'debug',
         ],
 
+        'job' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/job.log'),
+            'level' => 'debug',
+        ],
+
+
         'mysql' => [
             'driver' => 'single',
             'path' => storage_path('logs/mysql.log'),
