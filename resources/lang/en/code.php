@@ -19,6 +19,9 @@ return [
     'http_not_found' => 'http not found',
     'system_error' => 'system error',
     'request_more' => 'request more',
+    'user_pwd_error' => 'user password error',
+    'user_token_error' => 'user token error',
+
 
 
 ];

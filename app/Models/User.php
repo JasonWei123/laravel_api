@@ -8,13 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Searchable;
     use CustomTime;
 
     protected $guarded = [];
+    protected $hidden = ['password'];
 
     /**
      * 获取索引名称
@@ -82,5 +84,15 @@ class User extends Authenticatable
     public function getDescAttribute($value)
     {
         return __($value);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

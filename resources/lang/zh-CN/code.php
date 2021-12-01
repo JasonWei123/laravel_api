@@ -19,6 +19,8 @@ return [
     'http_not_found' => '页面找不到',
     'system_error' => '系统异常',
     'request_more' => '请求频繁',
+    'user_pwd_error' => '用户密码错误',
+    'user_token_error' => '用户秘钥错误',
 
 
 ];

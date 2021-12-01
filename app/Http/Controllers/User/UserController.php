@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Algolia\AlgoliaSearch\SearchIndex;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\User\UserService;
@@ -51,9 +52,14 @@ class UserController extends Controller
     public function search(Request $request)
     {
 //        $res = User::search('test')->get();
-        $res = User::search('test',function(){
-
-        }
+        $res = User::search('福建省',
+            function (SearchIndex $algolia, string $query, array $options) {
+                $options['query']['bool']['filter']['account'] = [
+                    'distance' => 'Martina Legros',
+                    'location' => ['lat' => 36, 'lon' => 111],
+                ];
+                return $algolia->search($query, $options);
+            }
         )->get();
 
         return $this->success($res);

@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
 
 
         'log' => \App\Http\Middleware\LogMiddleware::class,
+        'pre_jwt' => \App\Http\Middleware\PreJwtMiddleware::class,
     ];
 
     /**

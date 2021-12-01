@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Test;
 
+use App\Events\ShippingStatusUpdated;
 use App\Http\Controllers\Controller;
 use App\Jobs\TestJob;
 use App\Models\User;
