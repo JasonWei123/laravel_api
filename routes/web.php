@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/private', function () {
+    return view('private');
+});
+Route::get('/chat', function () {
+    return view('chat');
+});

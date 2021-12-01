@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::prefix('broadcasting')
+    ->middleware(['log'])
+    ->name('broadcasting.')
+    ->group(function () {
+        Route::any('auth', 'BroadcastingController@auth')->name('broadcasting.auth');
+    });
+
+
+
 Route::prefix('user')
 ->namespace('User')
 ->middleware(['log'])

@@ -71,7 +71,10 @@ class Handler extends ExceptionHandler
             $log->warning($message);
             return $controller->failSystem(ResponseEnum::RESPONSE_NO_FOUND);
         }
-        $log->error($message);
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException) {
+            return $controller->failSystem(ResponseEnum::BROADCASTERS_AUTH_FAIL);
+        }
+        $log->error($exception);
         if (app()->environment() === 'local') {
             return $controller->failSystem(ResponseEnum::RESPONSE_ERROR, $exception->getMessage());
         }

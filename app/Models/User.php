@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return 'users_index';
     }
+
     /**
      * 获取模型的可搜索数据
      *
@@ -94,5 +95,14 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function canJoinRoom($roomId)
+    {
+        \Log::debug('canJoinRoom' . $roomId);
+        if ($roomId % 2 == 0) {
+            return false;
+        }
+        return true;
     }
 }

@@ -12,14 +12,19 @@
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    return (int)$user->id === (int)$id;
 });
 Broadcast::channel('user.{user_id}', function ($user, $user_id) {
+    \Log::debug('user.' . $user_id);
     return $user->id === \App\Models\User::query()->findOrNew($user_id)->id;
-});
-Broadcast::channel('ExampleEvent', function ($user, $id) {
-    return true;
-});
+}, ['guards' => ['api']]);
+
+Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
+    \Log::debug('chat.' . $roomId);
+    if ($user->canJoinRoom($roomId)) {
+        return ['id' => $user->id, 'name' => $user->account];
+    }
+}, ['guards' => ['api']]);
 
 Broadcast::channel('news', function ($user, $id) {
     return true;

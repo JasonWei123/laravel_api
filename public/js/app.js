@@ -25923,12 +25923,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 
+var token = localStorage.getItem("api_token");
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "99523a3c44f2b0955c2e",
   cluster: "us3",
-  encrypted: true
+  encrypted: true,
+  authEndpoint: '/broadcasting/auth',
+  auth: {
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  }
 }); // import Echo from 'laravel-echo'
 // import io from 'socket.io-client'
 //

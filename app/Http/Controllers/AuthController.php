@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ResponseEnum;
-use App\Events\AdminLogined;
 use App\Events\UserLogined;
 use App\Exceptions\InvalidRequestException;
 use App\Exceptions\ResponseSystemException;

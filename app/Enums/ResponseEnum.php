@@ -11,6 +11,7 @@ class ResponseEnum
     public const USER_PWD_ERROR = 'code.user_pwd_error|23001';
     public const USER_TOKEN_ERROR = 'code.user_token_error|23002';
     public const REQUEST_MORE = 'code.request_more|30001';
+    public const BROADCASTERS_AUTH_FAIL = 'code.broadcasters_auth_fail|40003';
     public const RESPONSE_NO_FOUND = 'code.http_not_found|40004';
     public const RESPONSE_ERROR = 'code.system_error|99999';
 }
