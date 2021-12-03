@@ -32,6 +32,13 @@ Route::prefix('user')
     Route::any('update', 'UserController@update')->middleware('throttle:1,1')->name('user.update');
     Route::any('search', 'UserController@search')->middleware('throttle:60,1')->name('user.search');
 });
+Route::prefix('user')
+    ->namespace('User')
+    ->middleware(['log', 'pre_jwt'])
+    ->name('user.')
+    ->group(function () {
+        Route::any('message', 'UserController@message')->name('user.message');
+    });
 
 
 Route::prefix('test')

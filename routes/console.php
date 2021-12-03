@@ -23,3 +23,7 @@ Artisan::command('bignews', function () {
     broadcast(new \App\Events\News(date('Y-m-d h:i:s A').": BIG NEWS!"));
     $this->comment("news sent");
 })->describe('Send news');
+Artisan::command('chat', function () {
+    broadcast(new \App\Events\News(date('Y-m-d h:i:s A').": BIG NEWS!"));
+    $this->comment("news sent");
+})->describe('Send news');

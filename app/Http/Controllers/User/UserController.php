@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Algolia\AlgoliaSearch\SearchIndex;
+use App\Events\Chat;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\User\UserService;
@@ -63,6 +64,19 @@ class UserController extends Controller
         )->get();
 
         return $this->success($res);
+    }
+
+    public function message(UserRequest $request)
+    {
+        $request->validate('message');
+        $params = collect($request->all())->only(
+            [
+                'message',
+            ]
+        )->toArray();
+        event(new Chat(auth('api')->user(), 1, $params['message']));
+
+        return $this->success();
     }
 }
 

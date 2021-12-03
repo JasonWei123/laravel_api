@@ -15,6 +15,7 @@ class UserRequest extends FormRequest
             'account' => 'required|string|email|min:6|max:60',
             'password' => 'required|string|min:6',
             'telphone' => 'required|zztelphone|min:6',
+            'message' => 'required|min:1|max:60',
         ];
     }
 
@@ -32,6 +33,9 @@ class UserRequest extends FormRequest
             ],
             'telphone' => [
                 'telphone',
+            ],
+            'message' => [
+                'message',
             ],
         ];
     }
