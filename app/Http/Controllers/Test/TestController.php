@@ -16,28 +16,30 @@ class TestController extends Controller
     public function test()
     {
 //        $user = User::query()->find(1);
+        $start = 0;
         $user = new \stdClass();
         $user->id = 1;
-        for ($x = 1; $x <= 50; $x++) {
+        for ($x = $start+1; $x <= $start+50; $x++) {
             $user->num = $x;
             if ($x % 2 == 0) {
                 TestJob::dispatch($user)->onQueue('high');
             } else {
                 TestJob::dispatch($user)->onQueue('low');
+                return $this->success();
             }
 
         }
 
-        $user->id = 2;
-        for ($x = 50; $x <= 60; $x++) {
-            $user->num = $x;
-            if ($x % 2 == 0) {
-                TestJob::dispatch($user);
-            } else {
-                TestJob::dispatch($user);
-            }
-
-        }
+//        $user->id = 2;
+//        for ($x = $start+51; $x <= $start+60; $x++) {
+//            $user->num = $x;
+//            if ($x % 2 == 0) {
+//                TestJob::dispatch($user);
+//            } else {
+//                TestJob::dispatch($user);
+//            }
+//
+//        }
         return $this->success();
     }
 

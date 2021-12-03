@@ -45,7 +45,24 @@ class TestJob implements ShouldQueue
     public function handle()
     {
         //
-        info('test:'. $this->user->id.':'.$this->user->num);
+        try {
+            if($this->user->id==1){
+                throw new \Exception(12313);
+            }
+            info('test:'. $this->user->id.':'.$this->user->num);
+            // Code that may throw an Exception or Error.
+        }
+        catch (\Throwable $t)
+        {
+            info($t);
+            // Executed only in PHP 7, will not match in PHP 5
+        }
+        catch (\Exception $e)
+        {
+            info($e);
+            // Executed only in PHP 5, will not be reached in PHP 7
+        }
+
     }
 
     public function tags()

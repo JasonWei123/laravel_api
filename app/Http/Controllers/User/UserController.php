@@ -53,15 +53,7 @@ class UserController extends Controller
     public function search(Request $request)
     {
 //        $res = User::search('test')->get();
-        $res = User::search('福建省',
-            function (SearchIndex $algolia, string $query, array $options) {
-                $options['query']['bool']['filter']['account'] = [
-                    'distance' => 'Martina Legros',
-                    'location' => ['lat' => 36, 'lon' => 111],
-                ];
-                return $algolia->search($query, $options);
-            }
-        )->get();
+        $res = User::search('Wintheiser')->where('login_count',1)->get();
 
         return $this->success($res);
     }
