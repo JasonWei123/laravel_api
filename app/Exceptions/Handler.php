@@ -53,18 +53,33 @@ class Handler extends ExceptionHandler
         $url = $request->url();
         $log = \Log::channel('error');
         $controller = new Controller();
-        $message = $url . ':ip:' . $ip . ':异常请求:' . json_encode($request->all()) . ':bug:' . $exception->getMessage();
+        $file = $exception->getFile();
+        $line = $exception->getLine();
+        $message = $url . ':ip:' . $ip .
+            'file:' . $file . ':' .
+            'line:' . $line . ':' .
+            ':异常请求:' . json_encode($request->all()) .
+            ':bug:' . $exception->getMessage();
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
             $log = \Log::channel('validation');
-            $log->info($message, $exception->validator->messages()->messages());
+            $failed = $exception->validator->messages()->messages();
+            $failedRules = $exception->validator->failed();
+            $logArr = [
+                'failed' => $failed,
+                'failedRules' => $failedRules,
+            ];
+            $log->info($message, $logArr);
+
             return $controller->fail($exception->validator->messages()->messages());
         }
         if ($exception instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
             $log->warning($message);
-            $retry_after = @$exception->getHeaders()['Retry-After'].' s';
+            $retry_after = @$exception->getHeaders()['Retry-After'] . ' s';
             return $controller->failSystem(ResponseEnum::REQUEST_MORE, ['aretry_after' => $retry_after], $exception->getHeaders());
         }
         if ($exception instanceof ResponseSystemException) {
+            $log = \Log::channel('system');
+            $log->warning($message);
             return $controller->failSystem($exception->getMessage());
         }
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
@@ -76,7 +91,7 @@ class Handler extends ExceptionHandler
         }
         $log->error($exception);
         if (app()->environment() === 'local') {
-            return $controller->failSystem(ResponseEnum::RESPONSE_ERROR, $exception->getMessage());
+            return $controller->failSystem(ResponseEnum::RESPONSE_ERROR, $exception->getTrace());
         }
         return $controller->failSystem(ResponseEnum::RESPONSE_ERROR);
     }

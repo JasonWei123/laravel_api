@@ -79,6 +79,12 @@ return [
             'level' => 'debug',
         ],
 
+        'system' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/system.log'),
+            'level' => 'debug',
+        ],
+
 
         'mysql' => [
             'driver' => 'single',
