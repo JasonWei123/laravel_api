@@ -87,6 +87,18 @@ class User extends Authenticatable implements JWTSubject
         return __($value);
     }
 
+    public function getLocaleCodeAttribute($value)
+    {
+        if ($value) {
+            if ($arr = explode(',', $value)) {
+                return $arr;
+            }
+            return $value;
+        }
+        return $value;
+    }
+
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

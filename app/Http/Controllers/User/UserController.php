@@ -44,8 +44,8 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = User::query()->first();
-        $user->account = 'test11111' . time();
-        $user->password = 'testaa' . time();
+        $user->account = '123';
+        $user->desc = 'A fresh verification link has been sent to your email address.';
         $user->save();
         return $this->success($user);
     }
@@ -53,7 +53,10 @@ class UserController extends Controller
     public function search(Request $request)
     {
 //        $res = User::search('test')->get();
-        $res = User::search('Wintheiser')->where('login_count',1)->get();
+        $res = User::search('Ms.')->raw();
+        dd($res);
+        $res = User::search('Ms.')->paginate(10);
+        $res = User::search('Ms.')->get();
 
         return $this->success($res);
     }
