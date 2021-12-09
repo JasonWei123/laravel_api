@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e720f8026096aaccec101c329692ebc3",
+    "content-hash": "3b360da002e7afbf5028b2659bc307b2",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -651,6 +651,59 @@
                 "source": "https://github.com/fideloper/TrustedProxy/tree/4.4.1"
             },
             "time": "2020-10-22T13:48:01+00:00"
+        },
+        {
+            "name": "freshbitsweb/laravel-log-enhancer",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freshbitsweb/laravel-log-enhancer.git",
+                "reference": "5939dc32b525c637543b81cb37874d312f6483f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/freshbitsweb/laravel-log-enhancer/zipball/5939dc32b525c637543b81cb37874d312f6483f7",
+                "reference": "5939dc32b525c637543b81cb37874d312f6483f7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "monolog/monolog": "^1.23|^2.1.1",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0.0",
+                "phpunit/phpunit": "^9.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Freshbitsweb\\LaravelLogEnhancer\\LaravelLogEnhancerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Freshbitsweb\\LaravelLogEnhancer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gaurav Makhecha",
+                    "email": "info@freshbits.in"
+                }
+            ],
+            "description": "Make debugging easier by adding more data to your laravel logs",
+            "support": {
+                "issues": "https://github.com/freshbitsweb/laravel-log-enhancer/issues",
+                "source": "https://github.com/freshbitsweb/laravel-log-enhancer/tree/v1.3.1"
+            },
+            "time": "2020-12-01T07:08:00+00:00"
         },
         {
             "name": "laravel-lang/lang",

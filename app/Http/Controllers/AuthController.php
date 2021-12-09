@@ -24,6 +24,9 @@ class AuthController extends Controller
         if (!$token = auth('api')->attempt($credentials)) {
             throw new ResponseSystemException(ResponseEnum::USER_PWD_ERROR);
         }
+        $payload = auth('api')->payload();
+        dd($payload);
+        $payload['jti']; // = 'asfe4fq434asdf'
         $return = [
             'token' => $token,
             'expires_in' => auth('api')->factory()->getTTL() * 60

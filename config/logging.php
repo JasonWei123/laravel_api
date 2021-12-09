@@ -37,6 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
             'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
@@ -56,6 +57,8 @@ return [
 
         'error' => [
             'driver' => 'daily',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+
             'path' => storage_path('logs/error.log'),
             'level' => 'debug',
             'days' => 14,
@@ -63,24 +66,31 @@ return [
 
         'validation' => [
             'driver' => 'single',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+
             'path' => storage_path('logs/validation.log'),
             'level' => 'debug',
         ],
 
         'sql' => [
             'driver' => 'single',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+
             'path' => storage_path('logs/sql.log'),
             'level' => 'debug',
         ],
 
         'job' => [
             'driver' => 'single',
+
             'path' => storage_path('logs/job.log'),
             'level' => 'debug',
         ],
 
         'system' => [
             'driver' => 'single',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+
             'path' => storage_path('logs/system.log'),
             'level' => 'debug',
         ],
@@ -88,6 +98,8 @@ return [
 
         'mysql' => [
             'driver' => 'single',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+
             'path' => storage_path('logs/mysql.log'),
             'level' => 'debug',
         ],
@@ -133,6 +145,13 @@ return [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
         ],
+        'production_stack' => [
+            'driver' => 'stack',
+            'tap' => [Freshbitsweb\LaravelLogEnhancer\LogEnhancer::class],
+            'channels' => ['daily'],
+        ],
     ],
+
+
 
 ];
