@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Algolia\AlgoliaSearch\SearchIndex;
 use App\Events\Chat;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
@@ -31,14 +32,14 @@ class UserController extends Controller
             ]
         )->toArray();
         $user = $this->service->createUser($params);
-        return $this->success($user);
+        return $this->success();
     }
 
 
     public function first(Request $request)
     {
-        $user = User::all()->toArray();
-        return $this->success($user);
+        $user = User::paginate(3);
+        return $this->success(UserResource::collection($user)->response()->getData());
     }
 
     public function update(Request $request)
